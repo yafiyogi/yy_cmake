@@ -1,2 +1,3 @@
 find_program(YY_CLANG_TIDY_CMD clang-tidy)
 set(YY_CLANG_TIDY_OPTIONS "--config-file=${YY_ROOT}/yy_tools/clang-tidy.conf")
+set(YY_TIDY_COMPILER_OPTIONS -isystem /Users/tony/code/tp/include -isystem /opt/local/libexec/llvm-18/include/c++/v1 -std=c++20 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.7 -fPIE -pedantic -Wall -Werror -Wextra -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough -Wnon-virtual-dtor -Wnull-dereference -Woverloaded-virtual -Wsign-conversion -Wshadow -Wunused -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fcf-protection=full -fPIE -fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -D_GLIBCXX_ASSERTIONS)
