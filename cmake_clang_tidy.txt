@@ -5,4 +5,8 @@ set(YY_TIDY_COMPILER_HEADER_PATHS
   -isystem /Users/tony/code/tp/include
   -isystem /opt/local/libexec/llvm-18/include/c++/v1
   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk)
-set(YY_TIDY_COMPILER_OPTIONS  ${YY_TIDY_COMPILER_HEADER_PATHS} -std=c++20 -mmacosx-version-min=12.7 -fPIE -pedantic -Wall -Werror -Wextra -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough -Wnon-virtual-dtor -Wnull-dereference -Woverloaded-virtual -Wsign-conversion -Wshadow -Wunused -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fcf-protection=full -fPIE -fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -D_GLIBCXX_ASSERTIONS)
+set(YY_TIDY_COMPILER_DEFINES
+  "-DSPDLOG_COMPILED_LIB"
+  "-DSPDLOG_FMT_EXTERNAL")
+
+set(YY_TIDY_COMPILER_OPTIONS  ${YY_TIDY_COMPILER_HEADER_PATHS} ${YY_TIDY_COMPILER_DEFINES} -std=c++20 -mmacosx-version-min=12.7 -fPIE -pedantic -Wall -Werror -Wextra -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough -Wnon-virtual-dtor -Wnull-dereference -Woverloaded-virtual -Wsign-conversion -Wshadow -Wunused -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fcf-protection=full -fPIE -fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -D_GLIBCXX_ASSERTIONS)
