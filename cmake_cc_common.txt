@@ -23,8 +23,10 @@
 #  SOFTWARE.
 #
 
+SET(YY_DEBUG_FLAGS "-g")
+
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
-add_compile_options(
+set(YY_CPP_OPTIONS_COMMON
   -pedantic
   -Wall
   -Werror
@@ -46,8 +48,9 @@ add_compile_options(
   -fPIE
   -fno-delete-null-pointer-checks
   -fno-strict-overflow
-  -fno-strict-aliasing
-)
+  -fno-strict-aliasing)
+
+add_compile_options(${YY_CPP_OPTIONS_COMMON})
 
 string(TOLOWER "${CMAKE_CXX_COMPILER_ID}" yy_cxx_compile_id)
 string(TOLOWER "${CMAKE_BUILD_TYPE}" yy_build_type)
@@ -56,7 +59,9 @@ string(TOLOWER "${CMAKE_SYSTEM_NAME}" yy_system_name) # see https://cmake.org/cm
 if (yy_cxx_compile_id STREQUAL "clang")
   # using Clang
   include(${YY_CMAKE}/cmake_llvm.txt)
+  add_compile_options(${YY_CPP_OPTIONS_LLVM})
 elseif (yy_cxx_compile_id STREQUAL "gnu")
   # using GCC
   include(${YY_CMAKE}/cmake_gcc.txt)
+  add_compile_options(${YY_CPP_OPTIONS_GCC})
 endif()

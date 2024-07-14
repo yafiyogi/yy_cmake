@@ -23,8 +23,6 @@
 #  SOFTWARE.
 #
 
-SET(YY_DEBUG_FLAGS "-g")
-
 # Linux
 SET(YY_LINUX_LLVM_OPTIONS
     "" )
@@ -34,17 +32,17 @@ SET(YY_MACOS_LLVM_OPTIONS
     "" )
 
 if("${yy_system_name}" STREQUAL "darwin")
-  set(YY_LLVM_OPTIONS "${YY_MACOS_LLVM_OPTIONS}")
+  set(YY_PLATFORM_LLVM_OPTIONS "${YY_MACOS_LLVM_OPTIONS}")
 elseif("${yy_system_name}" STREQUAL "linux")
-  set(YY_LLVM_OPTIONS "${YY_LINUX_LLVM_OPTIONS}")
+  set(YY_PLATFORM_LLVM_OPTIONS "${YY_LINUX_LLVM_OPTIONS}")
 else()
-  set(YY_LLVM_OPTIONS "")
+  set(YY_PLATFORM_LLVM_OPTIONS "")
 endif()
 
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
-add_compile_options(
+set(YY_CPP_OPTIONS_LLVM
+  ${YY_PLATFORM_LLVM_OPTIONS}
   -Werror=implicit
   -Werror=incompatible-pointer-types
   -Werror=int-conversion
-  "${YY_LLVM_OPTIONS}"
 )
