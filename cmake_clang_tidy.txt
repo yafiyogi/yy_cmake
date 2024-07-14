@@ -1,0 +1,2 @@
+find_program(YY_CLANG_TIDY_CMD clang-tidy)
+set(YY_CLANG_TIDY_OPTIONS "--config-file=${YY_ROOT}/yy_tools/clang-tidy.conf")
