@@ -41,6 +41,7 @@ endif()
 
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
 set(YY_CPP_OPTIONS_LLVM
+  -fanalyzer
   -Wduplicated-cond
   -Wduplicated-branches
   -Wlogical-op
