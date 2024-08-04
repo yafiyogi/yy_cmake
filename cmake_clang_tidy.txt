@@ -28,11 +28,13 @@ include(${YY_CMAKE}/cmake_llvm.txt)
 find_program(YY_CLANG_TIDY_CMD clang-tidy)
 
 set(YY_CLANG_TIDY_OPTIONS "--config-file=${YY_ROOT}/../yy_tools/clang-tidy.conf")
+
 set(YY_TIDY_COMPILER_HEADER_PATHS
   -isystem /Users/tony/code/cpp/build/include
   -isystem /Users/tony/code/tp/include
   -isystem /opt/local/libexec/llvm-18/include/c++/v1
   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/)
+
 set(YY_TIDY_COMPILER_DEFINES
   "-DSPDLOG_COMPILED_LIB"
   "-DSPDLOG_FMT_EXTERNAL")
@@ -63,5 +65,5 @@ function(add_yy_tidy_all tidy_target)
     COMMAND rm -f ${YY_TIDY_REPORT} \; for f in "$$(" echo \"${YY_CLANG_TIDY_CPP_HEADERS} ${YY_CLANG_TIDY_CPP_SOURCES}\" | sed -n -e 's/;/ /pg' ")" \; do ${YY_CLANG_TIDY_CMD} ${YY_CLANG_TIDY_OPTIONS} "$$f" -- ${YY_TIDY_COMPILER_OPTIONS} >> ${YY_TIDY_REPORT} \; done)
 
   add_custom_target(tidy
-    COMMAND rm -f ${YY_TIDY_REPORT} \; set YY_GIT_FILES "$$(" git ls-files -m | grep -e '\(\.cpp\|\.h\)$$' ")" \; if [ -n \"$$YY_GIT_FILES\" ] \; then for f in \"$$YY_GIT_FILES\" \; do ${YY_CLANG_TIDY_CMD} ${YY_CLANG_TIDY_OPTIONS} "$$f" -- ${YY_TIDY_COMPILER_OPTIONS} >> ${YY_TIDY_REPORT} \; done \; fi \; unset YY_GIT_FILES)
+    COMMAND rm -f ${YY_TIDY_REPORT} \; declare YY_GIT_FILES=\" "$$(" git ls-files -m | grep -e '\\\(\.h\\|\.cpp\\\)$$' | awk \'{printf\("%s ", $$0 \)}\' ")" \" \; if [ -n \"$$YY_GIT_FILES\" ] \; then for f in $$YY_GIT_FILES \; do ${YY_CLANG_TIDY_CMD} ${YY_CLANG_TIDY_OPTIONS} "$$f" -- ${YY_TIDY_COMPILER_OPTIONS} >> ${YY_TIDY_REPORT} \; done \; fi \; unset YY_GIT_FILES)
 endfunction()
