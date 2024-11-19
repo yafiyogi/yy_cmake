@@ -23,6 +23,8 @@
 #  SOFTWARE.
 #
 
+if("${yy_build_type}" STREQUAL "coverage")
+
 # Add new build types
 message("* Adding Coverage build types...")
 
@@ -65,3 +67,24 @@ MARK_AS_ADVANCED(
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE )
 
 set(FASTCOV_CMD python3 -m fastcov)
+
+function(add_cmake_coverage target depend_target)
+
+cmake_path(GET PROJECT_SOURCE_DIR PARENT_PATH YY_PROJECT_SOURCE_PARENT_DIR)
+
+add_custom_target(coverage
+  COMMAND ${FASTCOV_CMD} --include "${YY_PROJECT_SOURCE_PARENT_DIR}" --exclude "${PROJECT_SOURCE_DIR}" --search-directory .. --process-gcno --output "${target}-gcov.json"
+  COMMAND ${FASTCOV_CMD} -C "${target}-gcov.json" --lcov --output "${target}-gcov.info"
+  COMMAND genhtml -o "${target}-gcov.html" "${target}-gcov.info" )
+
+add_dependencies(coverage ${depend_target})
+
+endfunction()
+
+else()
+
+function(add_cmake_coverage target depend_target)
+  # do nothing
+endfunction()
+
+endif()
