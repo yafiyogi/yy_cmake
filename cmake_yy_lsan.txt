@@ -72,13 +72,13 @@ MARK_AS_ADVANCED(
 
 function(add_cmake_lsan target_exe)
 
-add_custom_target(asan
+add_custom_target(lsan
   COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_exe}.lsan_heap_leak.log"
   COMMAND "./${target_exe}" --gtest_brief=1 heap_buffer_overflow 2> "${target_exe}.lsan_heap_buffer_overflow.log" )
 
-endfunction()
-
 add_dependencies(lsan ${target_exe})
+
+endfunction()
 
 else()
 
