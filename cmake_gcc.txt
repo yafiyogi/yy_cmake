@@ -68,7 +68,8 @@ if( NOT yy_cxx_compiler_version STREQUAL "")
 endif()
 
 if("${yy_gxx_version_major}" GREATER "12")
-  string(APPEND YY_CPP_OPTIONS_GCC " -fcf-protection=full")
-  string(APPEND YY_CPP_OPTIONS_GCC " -Wnrvo")
-  string(APPEND YY_CPP_OPTIONS_GCC " -Wno-error=nrvo")
+  set(YY_CPP_OPTIONS_GCC "${YY_CPP_OPTIONS_GCC}"
+        "-fcf-protection=full"
+        "-Wnrvo"
+        "-Wno-error=nrvo")
 endif()
