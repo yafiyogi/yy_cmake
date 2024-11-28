@@ -23,6 +23,14 @@
 #  SOFTWARE.
 #
 
+string(TOLOWER "${CMAKE_CXX_COMPILER_ID}" yy_cxx_compiler_id)
+string(TOLOWER "${CMAKE_CXX_COMPILER_VERSION}" yy_cxx_compiler_version)
+string(TOLOWER "${CMAKE_BUILD_TYPE}" yy_build_type)
+string(TOLOWER "${CMAKE_SYSTEM_NAME}" yy_system_name) # see https://cmake.org/cmake/help/latest/variable/CMAKE_SYSTEM_NAME.html
+
+message("- [${yy_cxx_compiler_id}] version [${yy_cxx_compiler_version}]")
+message("- System name = [${yy_system_name}]")
+
 SET(YY_DEBUG_FLAGS "-g")
 
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
@@ -52,15 +60,11 @@ set(YY_CPP_OPTIONS_COMMON
 
 add_compile_options(${YY_CPP_OPTIONS_COMMON})
 
-string(TOLOWER "${CMAKE_CXX_COMPILER_ID}" yy_cxx_compile_id)
-string(TOLOWER "${CMAKE_BUILD_TYPE}" yy_build_type)
-string(TOLOWER "${CMAKE_SYSTEM_NAME}" yy_system_name) # see https://cmake.org/cmake/help/latest/variable/CMAKE_SYSTEM_NAME.html
-
-if (yy_cxx_compile_id STREQUAL "clang")
+if (yy_cxx_compiler_id STREQUAL "clang")
   # using Clang
   include(${YY_CMAKE}/cmake_llvm.txt)
   add_compile_options(${YY_CPP_OPTIONS_LLVM})
-elseif (yy_cxx_compile_id STREQUAL "gnu")
+elseif (yy_cxx_compiler_id STREQUAL "gnu")
   # using GCC
   include(${YY_CMAKE}/cmake_gcc.txt)
   add_compile_options(${YY_CPP_OPTIONS_GCC})
