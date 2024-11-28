@@ -42,7 +42,8 @@ endif()
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
 set(YY_CPP_OPTIONS_LLVM
   ${YY_PLATFORM_LLVM_OPTIONS}
-  -Werror=implicit
-  -Werror=incompatible-pointer-types
-  -Werror=int-conversion
+  "-Werror=implicit"
+  "-Werror=incompatible-pointer-types"
+  "-Werror=int-conversion"
+  "-fcf-protection=full"
 )
