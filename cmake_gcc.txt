@@ -49,6 +49,7 @@ set(YY_CPP_OPTIONS_GCC
   "-Wtrivial-auto-var-init"
   "-Wuseless-cast"
   "-Wnrvo"
+  "-Wno-error=nrvo"
   # 2024-05-22 -D_GLIBCXX_ASSERTIONS
   # g++12    -fstrict-flex-arrays=3
   # 2024-05-22 -fstack-clash-protection
