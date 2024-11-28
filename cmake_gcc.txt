@@ -40,21 +40,34 @@ else()
 endif()
 
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
-set(YY_CPP_OPTIONS_LLVM
-  -fanalyzer
-  -Wduplicated-cond
-  -Wduplicated-branches
-  -Wlogical-op
-  -Wtrampolines
-  -Wtrivial-auto-var-init
-  -Wuseless-cast
+set(YY_CPP_OPTIONS_GCC
+  # "-fanalyzer" https://gcc.gnu.org/bugzilla/show_bug.cgi?id=97110
+  "-Wduplicated-cond"
+  "-Wduplicated-branches"
+  "-Wlogical-op"
+  "-Wtrampolines"
+  "-Wtrivial-auto-var-init"
+  "-Wuseless-cast"
+  "-Wnrvo"
   # 2024-05-22 -D_GLIBCXX_ASSERTIONS
   # g++12    -fstrict-flex-arrays=3
   # 2024-05-22 -fstack-clash-protection
-  # -mbranch-protection=standard
+  # "-mbranch-protection=standard"
 
   # optimizations
-  -finline-functions
-  --param max-inline-insns-auto=100
-  #--param early-inlining-insns=200
+  "-finline-functions"
+  #"--param max-inline-insns-auto=100"
+  #"--param early-inlining-insns=200"
 )
+
+set(yy_gxx_version_major "0")
+
+string(STRIP "${yy_cxx_compiler_version}" yy_cxx_compiler_version)
+if( NOT yy_cxx_compiler_version STREQUAL "")
+  string(REPLACE "." ";" yy_cxx_compiler_version_list ${yy_cxx_compiler_version})
+  list(GET yy_cxx_compiler_version_list 0 yy_gxx_version_major)
+endif()
+
+#if("${yy_gxx_version_major}" GREATER "12")
+#  string(APPEND YY_CPP_OPTIONS_GCC " -fcf-protection=full")
+#endif()
