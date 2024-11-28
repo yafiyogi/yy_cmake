@@ -24,8 +24,8 @@
 #
 
 set(CMAKE_CXX_STANDARD 20)
-message("* Current build type is : [${CMAKE_BUILD_TYPE}]")
-message("* YY_THIRD_PARTY_LIBRARY is : [${YY_THIRD_PARTY_LIBRARY}]")
+message("- Current build type is : [${CMAKE_BUILD_TYPE}]")
+message("- YY_THIRD_PARTY_LIBRARY is : [${YY_THIRD_PARTY_LIBRARY}]")
 
 include(${YY_CMAKE}/cmake_cc_common.txt)
 
@@ -45,19 +45,22 @@ set(PKG_CONFIG_PATH
   "$ENV{PKG_CONFIG_PATH}" )
 
 if (NOT "${YY_THIRD_PARTY_LIBRARY}" STREQUAL "")
-  set(YY_PKG_CONFIG_PATH "${YY_THIRD_PARTY_LIBRARY}/lib/pkgconfig"
+  set(YY_PKG_CONFIG_PATH
+                         "${YY_THIRD_PARTY_LIBRARY}/lib/pkgconfig"
                          "${YY_THIRD_PARTY_LIBRARY}/share/pkgconfig"
                          "$ENV{PKG_CONFIG_PATH}")
   set(ENV{PKG_CONFIG_PATH} "${YY_PKG_CONFIG_PATH}")
   find_package(PkgConfig REQUIRED)
 
-  set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}"
+  set(CMAKE_MODULE_PATH
+                        "${CMAKE_MODULE_PATH}"
                         "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
                         "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
-  set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}"
+  set(CMAKE_PREFIX_PATH
+                        "${CMAKE_PREFIX_PATH}"
                         "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
                         "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
 endif()
-message("* PKG_CONFIG_PATH is   : [$ENV{PKG_CONFIG_PATH}]")
-message("* CMAKE_MODULE_PATH is : [${CMAKE_MODULE_PATH}]")
-message("* CMAKE_PREFIX_PATH is : [${CMAKE_PREFIX_PATH}]")
+message("- PKG_CONFIG_PATH is   : [$ENV{PKG_CONFIG_PATH}]")
+message("- CMAKE_MODULE_PATH is : [${CMAKE_MODULE_PATH}]")
+message("- CMAKE_PREFIX_PATH is : [${CMAKE_PREFIX_PATH}]")
