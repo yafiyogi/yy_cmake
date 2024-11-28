@@ -48,8 +48,6 @@ set(YY_CPP_OPTIONS_GCC
   "-Wtrampolines"
   "-Wtrivial-auto-var-init"
   "-Wuseless-cast"
-  "-Wnrvo"
-  "-Wno-error=nrvo"
   # 2024-05-22 -D_GLIBCXX_ASSERTIONS
   # g++12    -fstrict-flex-arrays=3
   # 2024-05-22 -fstack-clash-protection
@@ -69,6 +67,8 @@ if( NOT yy_cxx_compiler_version STREQUAL "")
   list(GET yy_cxx_compiler_version_list 0 yy_gxx_version_major)
 endif()
 
-#if("${yy_gxx_version_major}" GREATER "12")
-#  string(APPEND YY_CPP_OPTIONS_GCC " -fcf-protection=full")
-#endif()
+if("${yy_gxx_version_major}" GREATER "12")
+  string(APPEND YY_CPP_OPTIONS_GCC " -fcf-protection=full")
+  string(APPEND YY_CPP_OPTIONS_GCC " -Wnrvo")
+  string(APPEND YY_CPP_OPTIONS_GCC " -Wno-error=nrvo")
+endif()

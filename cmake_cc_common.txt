@@ -52,7 +52,6 @@ set(YY_CPP_OPTIONS_COMMON
   -U_FORTIFY_SOURCE
   -D_FORTIFY_SOURCE=3
   -fstack-protector-strong
-  -fcf-protection=full
   -fPIE
   -fno-delete-null-pointer-checks
   -fno-strict-overflow
