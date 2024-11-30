@@ -30,10 +30,16 @@ find_program(YY_CLANG_TIDY_CMD clang-tidy)
 set(YY_CLANG_TIDY_OPTIONS "--config-file=${YY_ROOT}/../yy_tools/clang-tidy.conf")
 
 set(YY_TIDY_COMPILER_HEADER_PATHS
-  -isystem /Users/tony/code/cpp/build/include
-  -isystem /Users/tony/code/tp/include
+  -isystem ${YY_ROOT}/build/include
+  -isystem ${YY_THIRD_PARTY_LIBRARY}/include)
+
+if("${yy_system_name}" STREQUAL "darwin")
+set(YY_TIDY_COMPILER_HEADER_PATHS
+  "${YY_TIDY_COMPILER_HEADER_PATHS}"
   -isystem /opt/local/libexec/llvm-18/include/c++/v1
   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/)
+endif()
+
 
 set(YY_TIDY_COMPILER_DEFINES
   "-DSPDLOG_COMPILED_LIB"
