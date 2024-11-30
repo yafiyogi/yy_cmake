@@ -55,6 +55,7 @@ set(YY_CPP_OPTIONS_GCC
 
   # optimizations
   "-finline-functions"
+  "-flto=auto" # https://stackoverflow.com/a/72222512
   #"--param max-inline-insns-auto=100"
   #"--param early-inlining-insns=200"
 )
