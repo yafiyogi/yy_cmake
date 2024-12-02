@@ -68,22 +68,22 @@ MARK_AS_ADVANCED(
 
 set(FASTCOV_CMD python3 -m fastcov)
 
-function(add_cmake_coverage target depend_target)
+function(add_cmake_coverage target_name target)
 
 cmake_path(GET PROJECT_SOURCE_DIR PARENT_PATH YY_PROJECT_SOURCE_PARENT_DIR)
 
 add_custom_target(coverage
-  COMMAND ${FASTCOV_CMD} --include "${YY_PROJECT_SOURCE_PARENT_DIR}" --exclude "${PROJECT_SOURCE_DIR}" --search-directory .. --process-gcno --output "${target}-gcov.json"
-  COMMAND ${FASTCOV_CMD} -C "${target}-gcov.json" --lcov --output "${target}-gcov.info"
-  COMMAND genhtml -o "${target}-gcov.html" "${target}-gcov.info" )
+  COMMAND ${FASTCOV_CMD} --include "${YY_PROJECT_SOURCE_PARENT_DIR}" --exclude "${PROJECT_SOURCE_DIR}" --search-directory .. --process-gcno --output "${target_name}-gcov.json"
+  COMMAND ${FASTCOV_CMD} -C "${target_name}-gcov.json" --lcov --output "${target_name}-gcov.info"
+  COMMAND genhtml -o "${target_name}-gcov.html" "${target_name}-gcov.info" )
 
-add_dependencies(coverage ${depend_target})
+add_dependencies(coverage ${target})
 
 endfunction()
 
 else()
 
-function(add_cmake_coverage target depend_target)
+function(add_cmake_coverage target_name target)
   # do nothing
 endfunction()
 

@@ -70,11 +70,11 @@ MARK_AS_ADVANCED(
     CMAKE_EXE_LINKER_FLAGS_LSAN
     CMAKE_SHARED_LINKER_FLAGS_LSAN )
 
-function(add_cmake_lsan target_exe)
+function(add_cmake_lsan target_name target_exe)
 
 add_custom_target(lsan
-  COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_exe}.lsan_heap_leak.log"
-  COMMAND "./${target_exe}" --gtest_brief=1 heap_buffer_overflow 2> "${target_exe}.lsan_heap_buffer_overflow.log" )
+  COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_name}.lsan_heap_leak.log"
+  COMMAND "./${target_exe}" --gtest_brief=1 heap_buffer_overflow 2> "${target_name}.lsan_heap_buffer_overflow.log" )
 
 add_dependencies(lsan ${target_exe})
 
@@ -82,7 +82,7 @@ endfunction()
 
 else()
 
-function(add_cmake_lsan target_exe)
+function(add_cmake_lsan target_name target_exe)
   # do nothing
 endfunction()
 

@@ -69,11 +69,11 @@ MARK_AS_ADVANCED(
     CMAKE_EXE_LINKER_FLAGS_ASAN
     CMAKE_SHARED_LINKER_FLAGS_ASAN )
 
-function(add_cmake_asan target_exe)
+function(add_cmake_asan target_name target_exe)
 
 add_custom_target(asan
-  COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_exe}.asan_heap_leak.log"
-  COMMAND "./${target_exe}" --gtest_brief=1 global_buffer_overflow 2> "${target_exe}.asan_global_buffer_overflow.log")
+  COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_name}.asan_heap_leak.log"
+  COMMAND "./${target_exe}" --gtest_brief=1 global_buffer_overflow 2> "${target_name}.asan_global_buffer_overflow.log")
 
 add_dependencies(asan ${target_exe})
 
@@ -81,7 +81,7 @@ endfunction()
 
 else()
 
-function(add_cmake_asan target)
+function(add_cmake_asan target_name target_exe)
   # do nothing
 endfunction()
 
