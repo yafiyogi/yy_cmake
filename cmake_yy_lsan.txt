@@ -29,8 +29,7 @@ if("${yy_build_type}" STREQUAL "lsan")
 message("* Adding LSAN build types...")
 # Linux
 SET(YY_LINUX_LSAN_OPTIONS
-    "-ggdb -fsanitize=address -fno-omit-frame-pointer -static-libstdc++ -static-libgcc" )
-
+    "-ggdb -fsanitize=leak -fno-omit-frame-pointer -static-libstdc++ -static-libgcc -static-liblsan -lrt" )
 
 # MacOs
 SET(YY_MACOS_LSAN_OPTIONS
@@ -74,7 +73,8 @@ function(add_cmake_lsan target_name target_exe)
 
 add_custom_target(lsan
   COMMAND "./${target_exe}" --gtest_brief=1 heap_leak 2> "${target_name}.lsan_heap_leak.log"
-  COMMAND "./${target_exe}" --gtest_brief=1 heap_buffer_overflow 2> "${target_name}.lsan_heap_buffer_overflow.log" )
+  COMMAND "./${target_exe}" --gtest_brief=1 heap_buffer_overflow 2> "${target_name}.lsan_heap_buffer_overflow.log"
+  )
 
 add_dependencies(lsan ${target_exe})
 
