@@ -34,6 +34,7 @@ SET(YY_MACOS_GCC_OPTIONS
 if("${yy_system_name}" STREQUAL "darwin")
   set(YY_PLATFORM_GCC_OPTIONS "${YY_MACOS_GCC_OPTIONS}")
 elseif("${yy_system_name}" STREQUAL "linux")
+  include(${YY_CMAKE}/cmake_gcc_rpi.txt)
   set(YY_PLATFORM_GCC_OPTIONS "${YY_LINUX_GCC_OPTIONS}")
 else()
   set(YY_PLATFORM_GCC_OPTIONS "")
@@ -41,6 +42,7 @@ endif()
 
 # From https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
 set(YY_CPP_OPTIONS_GCC
+  "${YY_PLATFORM_GCC_OPTIONS}"
   # "-fanalyzer" https://gcc.gnu.org/bugzilla/show_bug.cgi?id=97110
   "-Wduplicated-cond"
   "-Wduplicated-branches"
