@@ -39,28 +39,48 @@ endif()
 
 # set pkg_config env
 set(PKG_CONFIG "pkg-config")
-set(PKG_CONFIG_PATH
-  "${YY_THIRD_PARTY_LIBRARY}/lib/pkgconfig"
-  "${YY_THIRD_PARTY_LIBRARY}/share/pkgconfig"
-  "$ENV{PKG_CONFIG_PATH}" )
 
-if (NOT "${YY_THIRD_PARTY_LIBRARY}" STREQUAL "")
+if ( "${YY_THIRD_PARTY_LIBRARY}" STREQUAL "")
+  message( FATAL_ERROR "variable 'YY_THIRD_PARTY_LIBRARY' not set!" )
+endif()
+
+find_package(PkgConfig REQUIRED)
+
+if (NOT "$ENV{PKG_CONFIG_PATH}"  STREQUAL "")
   set(YY_PKG_CONFIG_PATH
                          "${YY_THIRD_PARTY_LIBRARY}/lib/pkgconfig"
                          "${YY_THIRD_PARTY_LIBRARY}/share/pkgconfig"
                          "$ENV{PKG_CONFIG_PATH}")
-  set(ENV{PKG_CONFIG_PATH} "${YY_PKG_CONFIG_PATH}")
-  find_package(PkgConfig REQUIRED)
-
-  set(CMAKE_MODULE_PATH
-                        "${CMAKE_MODULE_PATH}"
-                        "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
-                        "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
-  set(CMAKE_PREFIX_PATH
-                        "${CMAKE_PREFIX_PATH}"
-                        "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
-                        "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
+else()
+  set(YY_PKG_CONFIG_PATH
+                         "${YY_THIRD_PARTY_LIBRARY}/lib/pkgconfig"
+                         "${YY_THIRD_PARTY_LIBRARY}/share/pkgconfig")
 endif()
+
+set(ENV{PKG_CONFIG_PATH} "${YY_PKG_CONFIG_PATH}")
+
+if (NOT "$ENV{CMAKE_MODULE_PATH}"  STREQUAL "")
+  set(CMAKE_MODULE_PATH
+    "${CMAKE_MODULE_PATH}"
+    "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
+    "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
+else()
+  set(CMAKE_MODULE_PATH
+    "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
+    "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
+endif()
+
+if (NOT "$ENV{CMAKE_PREFIX_PATH}"  STREQUAL "")
+  set(CMAKE_PREFIX_PATH
+      "${CMAKE_PREFIX_PATH}"
+      "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
+      "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
+else()
+  set(CMAKE_PREFIX_PATH
+      "${YY_THIRD_PARTY_LIBRARY}/lib/cmake"
+      "${YY_THIRD_PARTY_LIBRARY}/share/cmake")
+endif()
+
 message("- PKG_CONFIG_PATH is   : [$ENV{PKG_CONFIG_PATH}]")
 message("- CMAKE_MODULE_PATH is : [${CMAKE_MODULE_PATH}]")
 message("- CMAKE_PREFIX_PATH is : [${CMAKE_PREFIX_PATH}]")
