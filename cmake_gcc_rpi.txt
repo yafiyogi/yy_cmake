@@ -5,8 +5,6 @@ if("${yy_system_name}" STREQUAL "linux")
   execute_process(COMMAND ${CAT} "/sys/firmware/devicetree/base/model"
     RESULT_VARIABLE cat_result
     OUTPUT_VARIABLE cat_output)
-  message("result=[${cat_result}]")
-  message("output=[${cat_output}]")
 
   if("${cat_result}" EQUAL 0)
     string(TOLOWER "${cat_output}" cat_output)
