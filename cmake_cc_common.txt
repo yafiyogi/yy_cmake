@@ -23,6 +23,9 @@
 #  SOFTWARE.
 #
 
+# To dump default header search paths.
+# g++ -E -Wp,-v -xc++ /dev/null
+
 string(TOLOWER "${CMAKE_CXX_COMPILER_ID}" yy_cxx_compiler_id)
 string(TOLOWER "${CMAKE_CXX_COMPILER_VERSION}" yy_cxx_compiler_version)
 string(TOLOWER "${CMAKE_BUILD_TYPE}" yy_build_type)
