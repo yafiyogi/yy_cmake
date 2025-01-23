@@ -25,6 +25,8 @@
 
 if("${yy_build_type}" STREQUAL "coverage")
 
+include(${YY_CMAKE}/cmake_fastcov.txt)
+
 # Add new build types
 message("* Adding Coverage build types...")
 
@@ -66,7 +68,7 @@ MARK_AS_ADVANCED(
     CMAKE_EXE_LINKER_FLAGS_COVERAGE
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE )
 
-set(FASTCOV_CMD python3 -m fastcov)
+#set(FASTCOV_CMD "python3 -m fastcov")
 
 function(add_cmake_coverage target_name target)
 
