@@ -23,6 +23,11 @@
 #  SOFTWARE.
 #
 
+# * 'coverage': build & run tests create coverage pages
+# * 'coverage-page': create coverage pages
+# * 'coverage-clean': delete coverage data files (*.gcda)
+# * 'coverage-deep-clean': delete all coverage files (*.gcda & *.gcno)
+
 if("${yy_build_type}" STREQUAL "coverage")
 
 include(${YY_CMAKE}/cmake_fastcov.txt)
@@ -75,11 +80,18 @@ function(add_cmake_coverage target_name target)
 cmake_path(GET PROJECT_SOURCE_DIR PARENT_PATH YY_PROJECT_SOURCE_PARENT_DIR)
 
 add_custom_target(coverage
+  COMMAND ${CMAKE_MAKE_PROGRAM} coverage-clean "${target}" coverage-page )
+
+add_custom_target(coverage-page
   COMMAND ${FASTCOV_CMD} --include "${YY_PROJECT_SOURCE_PARENT_DIR}" --exclude "${PROJECT_SOURCE_DIR}" --search-directory .. --process-gcno --output "${target_name}-gcov.json"
   COMMAND ${FASTCOV_CMD} -C "${target_name}-gcov.json" --lcov --output "${target_name}-gcov.info"
   COMMAND genhtml -o "${target_name}-gcov.html" "${target_name}-gcov.info" )
 
-add_dependencies(coverage ${target})
+add_custom_target(coverage-clean
+  COMMAND find . -name '*.gcda' -delete )
+
+add_custom_target(coverage-deep-clean
+  COMMAND find . "\\(" -name '*.gcda' -o -name '*.gcno' "\\)" -delete )
 
 endfunction()
 
