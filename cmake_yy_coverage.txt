@@ -88,10 +88,10 @@ add_custom_target(coverage-page
   COMMAND genhtml -o "${target_name}-gcov.html" "${target_name}-gcov.info" )
 
 add_custom_target(coverage-clean
-  COMMAND find . -name '*.gcda' -delete )
+  COMMAND find "${CMAKE_BINARY_DIR}" -name '*.gcda' -delete )
 
 add_custom_target(coverage-deep-clean
-  COMMAND find . "\\(" -name '*.gcda' -o -name '*.gcno' "\\)" -delete )
+  COMMAND find "${CMAKE_BINARY_DIR}" "\\(" -name '*.gcda' -o -name '*.gcno' "\\)" -delete )
 
 endfunction()
 
