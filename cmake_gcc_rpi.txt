@@ -41,14 +41,18 @@ if("${yy_system_name}" STREQUAL "linux")
     if("${rpi_name}" STREQUAL "raspberry")
       set(YY_LINUX_GCC_OPTIONS
           "${YY_LINUX_GCC_OPTIONS}"
-          #  "-mfloat-abi=hard"
           "-flto=auto")
 
-     if("${rpi_version}" STREQUAL "3" OR "${rpi_version}" STREQUAL "4")
+      # rpi 3 amd 4
+      if("${rpi_version}" STREQUAL "3"
+         OR "${rpi_version}" STREQUAL "4"
+         OR "${rpi_version}" STREQUAL "5")
         set(YY_LINUX_GCC_OPTIONS
             "${YY_LINUX_GCC_OPTIONS}"
-            #"-mfpu=crypto-neon-fp-armv8"
-            "-march=armv8-a+crc")
+            "-march=armv8-a+crc"
+            "-mfloat-abi=hard"
+            "-mfpu=neon-fp-armv8"
+            "-mneon-for-64bits")
       endif()
     endif()
   endif()
