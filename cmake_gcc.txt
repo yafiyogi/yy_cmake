@@ -57,6 +57,8 @@ set(YY_CPP_OPTIONS_GCC
 
   # optimizations
   "-finline-functions"
+  "-fvisibility=hidden"
+  "-fconcepts-diagnostics-depth=5"
   #"-flto=auto" # https://stackoverflow.com/a/72222512
   #"--param max-inline-insns-auto=100"
   #"--param early-inlining-insns=200"
@@ -70,9 +72,11 @@ if( NOT yy_cxx_compiler_version STREQUAL "")
   list(GET yy_cxx_compiler_version_list 0 yy_gxx_version_major)
 endif()
 
-if("${yy_gxx_version_major}" GREATER "12")
+if("${yy_gxx_version_major}" STREQUAL "12")
+elseif("${yy_gxx_version_major}" GREATER "12")
   set(YY_CPP_OPTIONS_GCC "${YY_CPP_OPTIONS_GCC}"
         "-fcf-protection=full"
+        "-fstrict-flex-arrays=3"
         "-Wnrvo"
         "-Wno-error=nrvo")
 endif()
