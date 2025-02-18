@@ -49,10 +49,7 @@ if("${yy_system_name}" STREQUAL "linux")
          OR "${rpi_version}" STREQUAL "5")
         set(YY_LINUX_GCC_OPTIONS
             "${YY_LINUX_GCC_OPTIONS}"
-            "-march=armv8-a+crc"
-            "-mfloat-abi=hard"
-            "-mfpu=neon-fp-armv8"
-            "-mneon-for-64bits")
+            "-march=armv8-a+crc")
       endif()
     endif()
   endif()
