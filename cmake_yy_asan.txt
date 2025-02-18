@@ -44,7 +44,7 @@ else()
 endif()
 
 SET(CMAKE_CXX_FLAGS_ASAN
-    "${YY_DEBUG_FLAGS} -O0 ${YY_ASAN_OPTIONS}"
+    "${YY_DEBUG_FLAGS} -O0 -D_GLIBCXX_ASSERTIONS ${YY_ASAN_OPTIONS}"
     CACHE STRING "Flags used by the C++ compiler during asan builds."
     FORCE )
 

@@ -50,9 +50,8 @@ set(YY_CPP_OPTIONS_GCC
   "-Wtrampolines"
   "-Wtrivial-auto-var-init"
   "-Wuseless-cast"
-  # 2024-05-22 -D_GLIBCXX_ASSERTIONS
-  # g++12    -fstrict-flex-arrays=3
-  # 2024-05-22 -fstack-clash-protection
+  # -D_GLIBCXX_ASSERTIONS moved to cmake_yy_asan.txt & cmake_yy_lsan.txt
+  -fstack-clash-protection # 2024-05-22
   # "-mbranch-protection=standard"
 
   # optimizations
