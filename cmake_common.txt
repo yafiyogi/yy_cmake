@@ -32,6 +32,7 @@ include(${YY_CMAKE}/cmake_cc_common.txt)
 include(${YY_CMAKE}/cmake_yy_coverage.txt)
 include(${YY_CMAKE}/cmake_yy_asan.txt) # address sanitizer
 include(${YY_CMAKE}/cmake_yy_lsan.txt) # leak sanitzer
+include(${YY_CMAKE}/cmake_yy_valgrind.txt) # leak sanitzer
 
 if("${yy_build_type}" STREQUAL "profile")
   include(${YY_CMAKE}/cmake_yy_profile.txt) # profilerr
