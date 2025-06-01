@@ -1,0 +1,3 @@
+set(Iconv_INCLUDE_DIR ${YY_THIRD_PARTY_LIBRARY}/include)
+set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH}"
+                       "${YY_THIRD_PARTY_LIBRARY}/lib")
